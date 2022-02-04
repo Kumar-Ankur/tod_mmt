@@ -1,0 +1,13 @@
+.formStyle {
+  /* height: 50rem; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.image_name {
+  position: relative;
+  top: -1rem;
+  left: 2rem;
+}

@@ -1,0 +1,22 @@
+.header {
+  height: 10rem;
+  color: white;
+}
+.header_title {
+display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: none;
+}
+
+.header_welcome {
+  position: relative;
+  left: 2rem;
+  margin-top: 1rem;
+}
+
+.header_date {
+  position: relative;
+  float: right;
+  right: 2rem;
+}

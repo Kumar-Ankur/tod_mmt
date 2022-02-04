@@ -1,0 +1,56 @@
+{
+  "name": "tod_mmt",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@emotion/react": "^11.7.1",
+    "@emotion/styled": "^11.6.0",
+    "@mui/icons-material": "^5.3.1",
+    "@mui/material": "^5.4.0",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^12.0.0",
+    "@testing-library/user-event": "^13.2.1",
+    "body-parser": "^1.19.1",
+    "concurrently": "^7.0.0",
+    "express": "^4.17.2",
+    "firebase": "^7.19.1",
+    "firebaseui": "^6.0.0",
+    "mdb-react-ui-kit": "^2.3.0",
+    "mdb-ui-kit": "^3.10.2",
+    "mdbreact": "^5.2.0",
+    "node-polyfill-webpack-plugin": "^1.1.4",
+    "nodemailer": "^6.7.2",
+    "nodemon": "^2.0.15",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "5.0.0",
+    "web-vitals": "^2.1.0"
+  },
+  "scripts": {
+    "start-js": "react-scripts start",
+    "backend-start": "nodemon server.js",
+    "start": "concurrently \"npm run backend-start\" \"npm run start-js\"",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "proxy": "http://localhost:5000",
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
