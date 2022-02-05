@@ -97,7 +97,7 @@ const sendEmail = async (req) => {
   const { url } = req.body;
   await transporter.sendMail({
     from: '"MMT-TOD 👻" <ankur@kumarankur.in>',
-    to: "ankur@kumarankur.in, akakankur81@gmail.com, anjalisingh538@gmail.com, omvikram@gmail.com",
+    to: "ankur@kumarankur.in, akakankur81@gmail.com, omvikram@gmail.com",
     subject: "Term of day✔",
     html: mailTemplate,
     attachments: [
