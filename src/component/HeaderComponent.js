@@ -1,6 +1,7 @@
 import React from "react";
 import "./header.css";
-import DateTime from './DateTimeComponent';
+import DateTime from "./DateTimeComponent";
+import { WELCOME_MESSAGE, WELCOME_TITLE } from "../constant";
 
 export default function Header() {
   return (
@@ -8,9 +9,9 @@ export default function Header() {
       <div className="header_date">
         <DateTime />
       </div>
-      <h2 className="header_welcome">Welcome Guest</h2>
+      <h2 className="header_welcome">{WELCOME_MESSAGE}</h2>
       <div className="header_title">
-        <h1>Make My Trip: #Term of day</h1>
+        <h1>{WELCOME_TITLE}</h1>
       </div>
     </div>
   );
