@@ -6,6 +6,7 @@ require("firebase/storage");
 const nodemailer = require("nodemailer");
 const morgan = require("morgan");
 require("dotenv").config();
+const Cryptr = require("cryptr");
 
 const port = process.env.PORT || 5000;
 const app = express();
@@ -17,9 +18,12 @@ let transporter = nodemailer.createTransport({
   service: process.env.TRANSPORTER_SERVICE,
   port: 587,
   secure: false,
+  tls: {
+    rejectUnauthorized: false,
+  },
   auth: {
     user: "ankur@kumarankur.in",
-    pass: "Anjali@123",
+    pass: "Anjali@123", // todo - will use OAuth 2 instead of hardcoded password
   },
 });
 
@@ -93,7 +97,7 @@ const sendEmail = async (req) => {
   const { url } = req.body;
   await transporter.sendMail({
     from: '"MMT-TOD 👻" <ankur@kumarankur.in>',
-    to: "ankur@kumarankur.in, akakankur81@gmail.com, anjalisingh538@gmail.com",
+    to: "ankur@kumarankur.in, akakankur81@gmail.com, anjalisingh538@gmail.com, omvikram@gmail.com",
     subject: "Term of day✔",
     html: mailTemplate,
     attachments: [

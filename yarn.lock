@@ -4197,6 +4197,11 @@
   "resolved" "https://registry.npmjs.org/crypto-random-string/-/crypto-random-string-2.0.0.tgz"
   "version" "2.0.0"
 
+"cryptr@^6.0.2":
+  "integrity" "sha512-1TRHI4bmuLIB8WgkH9eeYXzhEg1T4tonO4vVaMBKKde8Dre51J68nAgTVXTwMYXAf7+mV2gBCkm/9wksjSb2sA=="
+  "resolved" "https://registry.npmjs.org/cryptr/-/cryptr-6.0.2.tgz"
+  "version" "6.0.2"
+
 "css-blank-pseudo@^3.0.2":
   "integrity" "sha512-hOb1LFjRR+8ocA071xUSmg5VslJ8NGo/I2qpUpdeAYyBVCgupS5O8SEVo4SxEMYyFBNodBkzG3T1iqW9HCXxew=="
   "resolved" "https://registry.npmjs.org/css-blank-pseudo/-/css-blank-pseudo-3.0.2.tgz"

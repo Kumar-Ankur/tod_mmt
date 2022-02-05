@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./form.css";
 import { FormControl, TextField, Button, Alert } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
@@ -35,6 +35,8 @@ export default function Form() {
   const [firebaseDB, setFirebaseDB] = useState(null);
   const [loader, showLoader] = useState(false);
 
+  const FormBodyRef = useRef();
+
   useEffect(() => {
     if (!firebase.apps.length) {
       firebase.initializeApp(firebaseConfig);
@@ -43,6 +45,17 @@ export default function Form() {
     }
     setFirebaseDB(firebase.storage());
   }, []);
+
+  useEffect(() => {
+    console.log("enter into 2nd use effect");
+    if (loader) {
+      FormBodyRef.current.style.opacity = 0.5;
+      FormBodyRef.current.style.pointerEvents = "none";
+    } else {
+      FormBodyRef.current.style.opacity = 1;
+      FormBodyRef.current.style.pointerEvents = "auto";
+    }
+  }, [loader]);
 
   /**
    *
@@ -135,6 +148,8 @@ export default function Form() {
           setIsPublishSuccess(true);
           resetNotification(setIsPublishSuccess);
           showLoader(false);
+        } else {
+          showLoader(false);
         }
       })
       .catch((err) => {
@@ -184,7 +199,7 @@ export default function Form() {
    */
   const selectFile = (e) => {
     setShowError(false);
-    if (e.target.files) {
+    if (e.target.files && e.target.files.length > 0) {
       if (!validateImage(e.target.files[0].type)) {
         setInCompatibleError(true);
         setSelectedFile(e.target.files[0]);
@@ -212,7 +227,7 @@ export default function Form() {
         {isPublishSuccess && <Alert severity="success">{SUCCESS_MESSAGE}</Alert>}
         {isPublishFailure && <Alert severity="error">{FAILURE_MESSAGE}</Alert>}
       </Stack>
-      <div className="formStyle">
+      <div className="formStyle" ref={FormBodyRef}>
         <FormControl fullWidth={true} margin="normal">
           <TextField
             id={showError && !title ? "outlined-error" : "outlined-basic"}
