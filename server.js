@@ -1,31 +1,42 @@
 const express = require("express");
+require("dotenv").config();
 const bodyParser = require("body-parser");
 const firebase = require("firebase/app");
 require("firebase/database");
 require("firebase/storage");
 const nodemailer = require("nodemailer");
 const morgan = require("morgan");
-require("dotenv").config();
 const Cryptr = require("cryptr");
 
 const port = process.env.PORT || 5000;
 const app = express();
 
 app.use(morgan("combined"));
+let transporter;
 
-// create reusable transporter object using the default SMTP transport
-let transporter = nodemailer.createTransport({
-  service: process.env.TRANSPORTER_SERVICE,
-  port: 587,
-  secure: false,
-  tls: {
-    rejectUnauthorized: false,
-  },
-  auth: {
-    user: "ankur@kumarankur.in",
-    pass: "Anjali@123", // todo - will use OAuth 2 instead of hardcoded password
-  },
-});
+const initializeTransporter = () => {
+  transporter = nodemailer.createTransport({
+    service: "Godaddy",
+    secure: false,
+    port: 587,
+    tls: {
+      rejectUnauthorized: false,
+    },
+    debug: true,
+    auth: {
+      user: process.env.NODEMAILER_EMAIL,
+      pass: process.env.NODEMAILER_PASSWORD,
+    },
+  });
+
+  transporter.verify((error, success) => {
+    if (error) {
+      throw new Error("Tranporter validation failed");
+    } else {
+      console.log("server is ready to send message");
+    }
+  });
+};
 
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
@@ -92,22 +103,29 @@ const createMailTemplate = (body) => {
   `;
 };
 
-const sendEmail = async (req) => {
+const sendEmail = (req) => {
   const mailTemplate = createMailTemplate(req.body);
   const { url } = req.body;
-  await transporter.sendMail({
-    from: '"MMT-TOD 👻" <ankur@kumarankur.in>',
-    to: "ankur@kumarankur.in, akakankur81@gmail.com, omvikram@gmail.com",
-    subject: "Term of day✔",
-    html: mailTemplate,
-    attachments: [
-      {
-        filename: "image.png",
-        path: url,
-        cid: "image",
-      },
-    ],
-  });
+  transporter
+    .sendMail({
+      from: '"MMT-TOD 👻" <ankur@kumarankur.in>',
+      to: "ankur@kumarankur.in, akakankur81@gmail.com, omvikram@gmail.com",
+      subject: "Term of day✔",
+      html: mailTemplate,
+      attachments: [
+        {
+          filename: "image.png",
+          path: url,
+          cid: "image",
+        },
+      ],
+    })
+    .then((res) => {
+      console.log("mail send successfully");
+    })
+    .catch((err) => {
+      throw new Error("Failed to send email");
+    });
 };
 
 app.post("/sendEmail", async (req, res) => {
@@ -122,4 +140,5 @@ app.post("/sendEmail", async (req, res) => {
 
 app.listen(port, () => {
   console.log(`Server is running on PORT ${port}`);
+  initializeTransporter();
 });
